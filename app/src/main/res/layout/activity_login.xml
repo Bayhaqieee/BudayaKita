@@ -170,7 +170,7 @@
         app:layout_constraintTop_toBottomOf="@id/passwordEditTextLayout" />
 
     <TextView
-        android:id="@+id/regist_to_login"
+        android:id="@+id/login_to_regist"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"

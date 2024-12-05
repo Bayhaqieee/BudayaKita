@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.budayakita.MainActivity
 import com.example.budayakita.databinding.ActivityLoginBinding
 import com.example.budayakita.ui.ViewModelFactory
+import com.example.budayakita.ui.auth.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,6 +23,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.loginToRegist.setOnClickListener{
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
         checkSession()
         setupAction()

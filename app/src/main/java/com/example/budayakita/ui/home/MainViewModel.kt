@@ -10,14 +10,12 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    // Fungsi untuk logout
     fun logout() {
         viewModelScope.launch {
-            userRepository.logout() // Panggil logout dari repository untuk menghapus sesi
+            userRepository.logout()
         }
     }
 
-    // Fungsi untuk mendapatkan status sesi (apakah user sudah login)
     fun getSession(): LiveData<UserModel> {
         return userRepository.getSession().asLiveData()
     }

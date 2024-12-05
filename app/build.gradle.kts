@@ -42,7 +42,9 @@ android {
     buildFeatures {
         buildConfig = true
     }
-
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -90,6 +92,8 @@ dependencies {
 
     implementation ("androidx.core:core:1.9.0")
     implementation ("androidx.datastore:datastore-preferences:1.1.1")
-    
+    implementation ("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
+    implementation ("androidx.databinding:databinding-runtime:7.0.4")
+
 
 }
