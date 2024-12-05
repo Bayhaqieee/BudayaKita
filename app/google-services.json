@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "472017872738",
+    "project_id": "budayakita-ea05a",
+    "storage_bucket": "budayakita-ea05a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472017872738:android:5bc66cda92636a09e76e3b",
+        "android_client_info": {
+          "package_name": "com.example.budayakita"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7EElhfeFA68-eZyDP6zEo8dBZ4V2f5zc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

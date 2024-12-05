@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.BudayaKita" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">#FFF1C6</item>
+        <item name="colorButtonNormal">#D81520</item>
+    </style>
+
+    <style name="Theme.BudayaKita" parent="Base.Theme.BudayaKita" />
+</resources>

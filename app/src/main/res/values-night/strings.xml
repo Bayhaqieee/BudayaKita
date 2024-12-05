@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logo_splash">Logo Splash</string>
+    <string name="background_shape">background shape</string>
+    <string name="title_menu_1">Explore Indonesian culture and discover its charms</string>
+    <string name="desc_menu_1">Embark on a journey to learn more about Indonesian culture. Discover the rich history, traditions and art</string>
+    <string name="title_menu_2">Explore the magic of archipelago heritage with Culture Detection</string>
+    <string name="desc_menu_2">Explore Indonesia\'s heritage. Identify batik, traditional foods, historical weapons and architectural styles</string>
+    <string name="title_menu_3">Create your dream batik with Generative AI</string>
+    <string name="desc_menu_3">Design your dream batik using the AI-powered Generator. Unleash your creativity and create unlimited batik artworks</string>
+    <string name="onboarding_logo">Onboarding Logo</string>
+    <string name="onboarding_image">Onboarding Image</string>
+    <string name="onboarding_title">Onboarding Title</string>
+    <string name="deskripsi_onboarding_yang_lebih_detail">Deskripsi onboarding yang lebih detail</string>
+    <string name="button_start">Let\'s Start</string>
+    <string name="welcome_to_budayaku">Welcome to <font color="#D81520">BudayaKu</font></string>
+    <string name="desc_regist">Complete the data below and get ready for a cultural exploration!</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="invalid_email_format">Invalid email format</string>
+    <string name="password_must">Password must be at least 8 characters</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_account">Already have an account? <font color="#D81520">Login</font></string>
+    <string name="login_desc">Welcome back! Log in to continue your cultural journey</string>
+    <string name="login">Login</string>
+    <string name="dont_have_account">Don’t have an account? <font color="#D81520">Register</font></string>
+    <string name="name_required">Name Required\n</string>
+    <string name="notifkasi_icon">notifkasi icon</string>
+    <string name="rekomendasi">Recommendation for you</string>
+    <string name="my_budaya">My Budaya</string>
+    <string name="list_of_batik">List of Batik</string>
+</resources>
