@@ -34,30 +34,85 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/title_mybudaya"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Explore"
-        android:textColor="@color/red"
-        android:textSize="18sp"
+    <ImageView
+        android:id="@+id/logo_main"
+        android:layout_width="209dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="@string/onboarding_logo"
+        android:src="@drawable/logo_budayakita_gabungan_panjang"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/line"
+        android:id="@+id/preview_image"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_marginTop="68dp"
+        android:contentDescription="@string/preview_image"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo_main"
+        app:srcCompat="@drawable/foto2" />
+
+    <LinearLayout
+        android:id="@+id/btn_container"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:src="@drawable/line"
+        android:layout_marginTop="68dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_mybudaya"
-        app:layout_constraintVertical_bias="0.007" />
+        app:layout_constraintTop_toBottomOf="@id/preview_image">
+
+        <Button
+            android:id="@+id/btn_gallery"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Gallery"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btn_camera"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Camera"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_upload"
+        android:layout_width="281dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Upload"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/btn_history"
+        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_container" />
+
+    <ImageView
+        android:id="@+id/btn_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:contentDescription="@string/button_history"
+        android:src="@drawable/history"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_container" />
 
     <com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
         android:id="@+id/bottomNavigation"
