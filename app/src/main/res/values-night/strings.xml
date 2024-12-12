@@ -35,4 +35,12 @@
     <string name="result_foto">result exploring</string>
     <string name="button_history">button history</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
+    <string name="name_result">Name Result</string>
+    <string name="detail">Detail</string>
+    <string name="re_upload">Re-Upload</string>
+    <string name="image_loading">image loading</string>
+    <string name="desc_otp">Enter the verification code we just sent on your email address</string>
+    <string name="verify">Verify</string>
+    <string name="enter_your_otp">Enter your OTP</string>
+    <string name="enter_your_email">Enter your email</string>
 </resources>

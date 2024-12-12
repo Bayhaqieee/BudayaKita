@@ -15,7 +15,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField ("String", "BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
+        buildConfigField ("String", "BASE_URL", "\"https://be-budaya-service-592544960467.asia-southeast2.run.app/\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

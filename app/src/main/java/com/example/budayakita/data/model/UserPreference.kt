@@ -17,8 +17,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     private val TOKEN_KEY = stringPreferencesKey("token_key")
     private val IS_LOGIN_KEY = booleanPreferencesKey("is_login")
 
-
-
     suspend fun saveToken(token: String) {
         dataStore.edit { preferences ->
             preferences[TOKEN_KEY] = token
@@ -30,8 +28,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         return dataStore.data.map { preferences ->
             UserModel(
                 token = preferences[TOKEN_KEY] ?: "",
-                isLogin = preferences[IS_LOGIN_KEY] ?: false,
-
+                isLogin = preferences[IS_LOGIN_KEY] ?: false
             )
         }
     }

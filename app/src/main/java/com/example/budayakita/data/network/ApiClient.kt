@@ -4,6 +4,7 @@ import com.example.budayakita.BuildConfig
 import com.example.budayakita.data.model.UserPreference
 import kotlinx.coroutines.flow.first
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,13 +15,18 @@ object ApiClient {
     private fun createClient(token: String? = null): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
 
-        if (!token.isNullOrEmpty()) {
-            httpClient.addInterceptor { chain ->
-                val request = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer $token")
-                    .build()
-                chain.proceed(request)
+        val logging = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        httpClient.addInterceptor(logging)
+
+        httpClient.addInterceptor { chain ->
+            val requestBuilder = chain.request().newBuilder()
+            if (!token.isNullOrEmpty()) {
+                requestBuilder.addHeader("Authorization", "Bearer $token")
             }
+            requestBuilder.addHeader("Content-Type", "application/json")
+            chain.proceed(requestBuilder.build())
         }
 
         return httpClient.build()

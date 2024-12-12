@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,7 +24,6 @@
         android:layout_height="403dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="-32dp"
-        android:layout_marginBottom="448dp"
         android:contentDescription="@string/background_shape"
         android:src="@drawable/ellipse_1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +35,8 @@
         android:id="@+id/loading_image"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="72dp"
+        android:contentDescription="@string/image_loading"
         android:src="@drawable/garuda"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,15 +57,13 @@
         android:id="@+id/textLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="52dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/loading_teks"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintMarginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loading_image" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

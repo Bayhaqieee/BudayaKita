@@ -1,6 +1,5 @@
 package com.example.budayakita.ui.auth.register
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.budayakita.databinding.ActivityRegisterBinding
 import com.example.budayakita.ui.ViewModelFactory
 import com.example.budayakita.ui.auth.login.LoginActivity
-
+import com.example.budayakita.ui.auth.otp.OtpActivity
 
 class RegisterActivity : AppCompatActivity() {
     private val viewModel by viewModels<RegisterViewModel> {
@@ -45,11 +44,7 @@ class RegisterActivity : AppCompatActivity() {
             viewModel.register(name, email, password).observe(this) { result ->
                 binding.progressBar.visibility = View.GONE
                 result.onSuccess { response ->
-                    if (!response.error) {
-                        showSuccessDialog(response.message)
-                    } else {
-                        showError(response.message)
-                    }
+                    showSuccessDialog(response.message)
                 }
                 result.onFailure {
                     showError("Registration failed: ${it.message}")
@@ -57,18 +52,11 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun validateForm(): Boolean {
         return when {
             binding.edRegisterName.text.isNullOrEmpty() -> {
                 binding.edRegisterName.error = "Name cannot be empty"
-                false
-            }
-            binding.edRegisterEmail.error != null -> {
-                Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
-                false
-            }
-            binding.edRegisterPassword.error != null -> {
-                Toast.makeText(this, "Password must be at least 8 characters", Toast.LENGTH_SHORT).show()
                 false
             }
             binding.edRegisterEmail.text.isNullOrEmpty() -> {
@@ -77,6 +65,10 @@ class RegisterActivity : AppCompatActivity() {
             }
             binding.edRegisterPassword.text.isNullOrEmpty() -> {
                 binding.edRegisterPassword.error = "Password cannot be empty"
+                false
+            }
+            binding.edRegisterPassword.text.toString().length < 8 -> {
+                binding.edRegisterPassword.error = "Password must be at least 8 characters"
                 false
             }
             else -> true
@@ -92,8 +84,8 @@ class RegisterActivity : AppCompatActivity() {
             setTitle("Success")
             setMessage(message)
             setPositiveButton("OK") { _, _ ->
-
-                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                val intent = Intent(this@RegisterActivity, OtpActivity::class.java)
+                intent.putExtra("email", binding.edRegisterEmail.text.toString())
                 startActivity(intent)
                 finish()
             }
@@ -101,7 +93,4 @@ class RegisterActivity : AppCompatActivity() {
             show()
         }
     }
-
-
-
 }

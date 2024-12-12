@@ -11,9 +11,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
     <application
@@ -43,6 +45,9 @@
             android:name=".ui.auth.register.RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.auth.otp.OtpActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.auth.login.LoginActivity"
             android:exported="false" />
         <activity
@@ -50,13 +55,11 @@
             android:exported="false" />
         <activity
             android:name=".ui.profile.ProfileActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".ui.glossary.GlossaryActivity"
-            android:exported="false">
+            android:exported="false"/>
 
-        </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -66,16 +69,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <activity
-            android:name=".ui.explore.ExploreActivity"
-            android:exported="false">
 
-        </activity>
-        <activity
-            android:name=".ui.create.CreateActivity"
-            android:exported="false">
 
-        </activity>
     </application>
 
 </manifest>

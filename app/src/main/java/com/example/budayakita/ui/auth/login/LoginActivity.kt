@@ -2,6 +2,7 @@ package com.example.budayakita.ui.auth.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -24,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.loginToRegist.setOnClickListener{
+        binding.loginToRegist.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
@@ -36,13 +37,11 @@ class LoginActivity : AppCompatActivity() {
     private fun checkSession() {
         viewModel.getSession().observe(this) { userModel ->
             if (userModel.isLogin && userModel.token.isNotEmpty()) {
+                Log.d("LoginActivity", "User is already logged in.")
                 navigateToMain()
-            } else {
-
             }
         }
     }
-
 
     private fun setupAction() {
         binding.loginButton.setOnClickListener {
@@ -56,47 +55,37 @@ class LoginActivity : AppCompatActivity() {
             viewModel.login(email, password).observe(this) { result ->
                 binding.progressBar.visibility = View.GONE
                 result.onSuccess { response ->
-                    if (!response.error) {
-                        response.loginResult.token.let {
-                            viewModel.saveSession(it)
-                        }
-
+                    response.token.let { token ->
+                        viewModel.saveSession(token)
+                        Log.d("LoginActivity", "Token saved successfully.")
                         navigateToMain()
-                    } else {
-                        showError(response.message)
                     }
                 }
                 result.onFailure {
                     showError("Login failed: ${it.message}")
+                    Log.e("LoginActivity", "Login failed", it)
                 }
             }
         }
     }
 
-
     private fun validateForm(): Boolean {
+        val email = binding.edLoginEmail.text.toString()
+        val password = binding.edLoginPassword.text.toString()
+
         return when {
-            binding.edLoginEmail.error != null -> {
-                Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
-                false
-            }
-
-            binding.edLoginPassword.error != null -> {
-                Toast.makeText(this, "Password must be at least 8 characters", Toast.LENGTH_SHORT)
-                    .show()
-                false
-            }
-
-            binding.edLoginEmail.text.isNullOrEmpty() -> {
+            email.isEmpty() -> {
                 binding.edLoginEmail.error = "Email cannot be empty"
                 false
             }
-
-            binding.edLoginPassword.text.isNullOrEmpty() -> {
+            password.isEmpty() -> {
                 binding.edLoginPassword.error = "Password cannot be empty"
                 false
             }
-
+            password.length < 8 -> {
+                binding.edLoginPassword.error = "Password must be at least 8 characters"
+                false
+            }
             else -> true
         }
     }
@@ -106,6 +95,7 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
     private fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }

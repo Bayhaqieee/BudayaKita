@@ -15,6 +15,7 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun login(email: String, password: String) = liveData(Dispatchers.IO) {
         try {
             val response = userRepository.login(email, password)
+            userRepository.saveToken(response.token)
             emit(Result.success(response))
         } catch (e: Exception) {
             emit(Result.failure(e))
@@ -23,7 +24,11 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     fun saveSession(token: String) {
         viewModelScope.launch {
-            userRepository.saveToken(token)
+            try {
+                userRepository.saveToken(token)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
