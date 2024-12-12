@@ -8,6 +8,7 @@ import com.example.budayakita.di.Injection
 import com.example.budayakita.ui.auth.login.LoginViewModel
 import com.example.budayakita.ui.auth.otp.OtpViewModel
 import com.example.budayakita.ui.auth.register.RegisterViewModel
+import com.example.budayakita.ui.explore.ExploreViewModel
 import com.example.budayakita.ui.home.MainViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -29,6 +30,10 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(userRepository) as T
             }
+            modelClass.isAssignableFrom(ExploreViewModel::class.java) ->{
+                ExploreViewModel(userRepository) as T
+            }
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }

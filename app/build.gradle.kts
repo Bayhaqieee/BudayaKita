@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.gms.google.services)
     id("kotlin-kapt")
 
 }
@@ -55,6 +56,7 @@ dependencies {
     implementation (libs.androidx.activity.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.recyclerview)
     testImplementation (libs.junit)
     androidTestImplementation (libs.androidx.junit)
     androidTestImplementation (libs.androidx.espresso.core)
@@ -90,10 +92,12 @@ dependencies {
     testImplementation (libs.androidx.core)
     testImplementation (libs.kotlinx.coroutines.test)
 
+    implementation(libs.firebase.auth)
     implementation ("androidx.core:core:1.9.0")
     implementation ("androidx.datastore:datastore-preferences:1.1.1")
     implementation ("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
     implementation ("androidx.databinding:databinding-runtime:7.0.4")
+
 
 
 }

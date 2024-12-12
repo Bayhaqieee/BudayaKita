@@ -43,4 +43,7 @@
     <string name="verify">Verify</string>
     <string name="enter_your_otp">Enter your OTP</string>
     <string name="enter_your_email">Enter your email</string>
+    <string name="history_image_desc">history image desc</string>
+    <string name="label_name">Label Name</string>
+    <string name="date">Date</string>
 </resources>

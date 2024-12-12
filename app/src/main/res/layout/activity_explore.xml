@@ -38,7 +38,7 @@
         android:id="@+id/logo_main"
         android:layout_width="209dp"
         android:layout_height="52dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="25dp"
         android:contentDescription="@string/onboarding_logo"
         android:src="@drawable/logo_budayakita_gabungan_panjang"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
 
     <ImageView
         android:id="@+id/preview_image"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="300dp"
         android:layout_marginTop="68dp"
         android:contentDescription="@string/preview_image"

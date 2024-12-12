@@ -71,6 +71,7 @@
 
     <TextView
         android:id="@+id/description"
+        android:background="@drawable/background_input_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
