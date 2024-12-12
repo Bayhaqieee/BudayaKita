@@ -19,7 +19,6 @@ import com.example.budayakita.data.model.UserPreference
 import com.example.budayakita.data.model.dataStore
 import com.example.budayakita.databinding.ActivityExploreBinding
 import com.example.budayakita.ui.ViewModelFactory
-import com.example.budayakita.ui.create.CreateActivity
 import com.example.budayakita.ui.glossary.GlossaryActivity
 import com.example.budayakita.ui.profile.ProfileActivity
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
@@ -50,6 +49,8 @@ class ExploreActivity : AppCompatActivity() {
         uri?.let {
             selectedImageUri = it
             binding.previewImage.setImageURI(it)
+        } ?: run {
+            Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -57,10 +58,14 @@ class ExploreActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            @Suppress("DEPRECATION") val photo = result.data?.extras?.get("data") as? Bitmap
-            photo?.let {
-                binding.previewImage.setImageBitmap(it)
-                // Convert bitmap to file if needed
+            @Suppress("DEPRECATION")
+            result.data?.extras?.get("data")?.let { photo ->
+                if (photo is Bitmap) {
+                    binding.previewImage.setImageBitmap(photo)
+                    // Convert bitmap to file if needed
+                }
+            } ?: run {
+                Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -73,7 +78,7 @@ class ExploreActivity : AppCompatActivity() {
         // Mengambil session atau token dari preference
         lifecycleScope.launch {
             val session = userPreference.getSession().first()
-            currentUserId = session.token // atau gunakan ID lainnya yang relevan
+            currentUserId = session.token
         }
 
         setupBottomNavigation()
@@ -87,8 +92,7 @@ class ExploreActivity : AppCompatActivity() {
             add(CurvedBottomNavigation.Model(1, "Home", R.drawable.ic_home))
             add(CurvedBottomNavigation.Model(2, "Glossary", R.drawable.ic_glossary))
             add(CurvedBottomNavigation.Model(3, "Explore", R.drawable.ic_explore))
-            add(CurvedBottomNavigation.Model(4, "Create", R.drawable.ic_create))
-            add(CurvedBottomNavigation.Model(5, "Profile", R.drawable.ic_profile))
+            add(CurvedBottomNavigation.Model(4, "Profile", R.drawable.ic_profile))
 
             show(3, true)
 
@@ -97,8 +101,7 @@ class ExploreActivity : AppCompatActivity() {
                     1 -> startActivity(Intent(this@ExploreActivity, MainActivity::class.java))
                     2 -> startActivity(Intent(this@ExploreActivity, GlossaryActivity::class.java))
                     3 -> {}
-                    4 -> startActivity(Intent(this@ExploreActivity, CreateActivity::class.java))
-                    5 -> startActivity(Intent(this@ExploreActivity, ProfileActivity::class.java))
+                    4 -> startActivity(Intent(this@ExploreActivity, ProfileActivity::class.java))
                 }
             }
         }
@@ -122,9 +125,14 @@ class ExploreActivity : AppCompatActivity() {
 
         binding.btnUpload.setOnClickListener {
             selectedImageUri?.let { uri ->
-                val file = File(getRealPathFromURI(uri))
-                exploreViewModel.predictImage(file.absolutePath, currentUserId)
-                replaceFragment(LoadingExploreFragment())
+                val realPath = getRealPathFromURI(uri)
+                if (realPath.isNotEmpty()) {
+                    val file = File(realPath)
+                    exploreViewModel.predictImage(file.absolutePath, currentUserId)
+                    replaceFragment(LoadingExploreFragment())
+                } else {
+                    Toast.makeText(this, "Failed to get image path", Toast.LENGTH_SHORT).show()
+                }
             } ?: run {
                 Toast.makeText(this, "Please select an image first", Toast.LENGTH_SHORT).show()
             }
@@ -156,11 +164,17 @@ class ExploreActivity : AppCompatActivity() {
         val projection = arrayOf(MediaStore.Images.Media.DATA)
         contentResolver.query(uri, projection, null, null, null)?.use { cursor ->
             val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            cursor.moveToFirst()
-            return cursor.getString(columnIndex)
+            if (cursor.moveToFirst()) {
+                val realPath = cursor.getString(columnIndex)
+
+                if (!realPath.isNullOrEmpty()) {
+                    return realPath
+                }
+            }
         }
         return uri.path ?: ""
     }
+
 
     @SuppressLint("SimpleDateFormat")
     private fun createImageFileUri(): Uri {

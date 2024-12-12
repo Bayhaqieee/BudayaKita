@@ -21,7 +21,6 @@ class OnboardingAdapter(
         val item = onboardingItems[position]
 
         holder.binding.apply {
-            // Gunakan Glide untuk memuat gambar secara efisien
             Glide.with(context)
                 .load(item.imageRes)
                 .into(onboardingImage)

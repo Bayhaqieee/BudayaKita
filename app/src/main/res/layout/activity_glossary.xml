@@ -39,7 +39,7 @@
         android:id="@+id/title_mybudaya"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/my_budaya"
         android:textColor="@color/red"

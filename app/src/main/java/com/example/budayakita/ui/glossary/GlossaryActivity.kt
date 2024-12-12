@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.budayakita.MainActivity
 import com.example.budayakita.R
 import com.example.budayakita.databinding.ActivityGlossaryBinding
-import com.example.budayakita.ui.create.CreateActivity
 import com.example.budayakita.ui.explore.ExploreActivity
 import com.example.budayakita.ui.profile.ProfileActivity
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
@@ -32,10 +31,7 @@ class GlossaryActivity : AppCompatActivity() {
             CurvedBottomNavigation.Model(3, "Explore", R.drawable.ic_explore)
         )
         bottomNavigation.add(
-            CurvedBottomNavigation.Model(4, "Create", R.drawable.ic_create)
-        )
-        bottomNavigation.add(
-            CurvedBottomNavigation.Model(5, "Profile", R.drawable.ic_profile)
+            CurvedBottomNavigation.Model(4, "Profile", R.drawable.ic_profile)
         )
 
         bottomNavigation.show(2, true)
@@ -45,8 +41,7 @@ class GlossaryActivity : AppCompatActivity() {
                 1 -> startActivity(Intent(this, MainActivity::class.java))
                 2 -> { }
                 3 -> startActivity(Intent(this, ExploreActivity::class.java))
-                4 -> startActivity(Intent(this, CreateActivity::class.java))
-                5 -> startActivity(Intent(this, ProfileActivity::class.java))
+                4 -> startActivity(Intent(this, ProfileActivity::class.java))
             }
         }
     }

@@ -34,7 +34,12 @@ class UserRepository private constructor(
         userPreference.saveToken(response.token)
         return response
     }
-
+    suspend fun saveDarkModePreference(isDarkMode: Boolean) {
+        userPreference.saveDarkModePreference(isDarkMode)
+    }
+    fun getDarkModePreference(): Flow<Boolean> {
+        return userPreference.getDarkModePreference()
+    }
 
     suspend fun saveToken(token: String) {
         userPreference.saveToken(token)

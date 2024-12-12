@@ -8,7 +8,6 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
@@ -17,6 +16,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
 
     private val TOKEN_KEY = stringPreferencesKey("token_key")
     private val IS_LOGIN_KEY = booleanPreferencesKey("is_login")
+    private val DARK_MODE_KEY = booleanPreferencesKey("dark_mode")
 
     suspend fun saveToken(token: String) {
         dataStore.edit { preferences ->
@@ -34,14 +34,21 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
-    suspend fun isUserLoggedIn(): Boolean {
-        val preferences = dataStore.data.first()
-        return preferences[IS_LOGIN_KEY] ?: false
-    }
-
     suspend fun logout() {
         dataStore.edit { preferences ->
             preferences.clear()
+        }
+    }
+
+    suspend fun saveDarkModePreference(isDarkMode: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[DARK_MODE_KEY] = isDarkMode
+        }
+    }
+
+    fun getDarkModePreference(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[DARK_MODE_KEY] ?: false
         }
     }
 

@@ -111,16 +111,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="196dp"
-        android:text="Logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rekomendasi" />
 
     <com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
         android:id="@+id/bottomNavigation"
@@ -141,7 +131,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogout"
+        app:layout_constraintTop_toBottomOf="@+id/rekomendasi"
         app:layout_constraintVertical_bias="1.0" />
 
 

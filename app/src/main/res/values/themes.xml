@@ -1,24 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.BudayaKita" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">#FFF1C6</item>
-        <item name="colorButtonNormal">#D81520</item>
+
+    <!-- Light Theme -->
+    <style name="Theme.BudayaKita.Light" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary Colors -->
         <item name="colorPrimary">@color/red</item>
         <item name="colorPrimaryVariant">@color/red</item>
         <item name="colorOnPrimary">@color/secondary1</item>
 
+        <!-- Secondary Colors -->
         <item name="colorSecondary">@color/golden_yellow</item>
         <item name="colorSecondaryVariant">@color/golden_yellow</item>
         <item name="colorOnSecondary">@color/black</item>
 
+        <!-- Status Bar Color -->
+        <item name="android:statusBarColor">#FFF1C6</item>
 
-        <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowAllowEnterTransitionOverlap">true</item>
-        <item name="android:windowAllowReturnTransitionOverlap">true</item>
-        <item name="android:windowSharedElementsUseOverlay">true</item>
+        <!-- Background and Text Colors -->
+
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/abu_netral</item>
+
     </style>
-
-    <style name="Theme.BudayaKita" parent="Base.Theme.BudayaKita" />
 
 </resources>
