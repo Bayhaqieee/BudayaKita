@@ -57,15 +57,14 @@ object ApiClient {
         return createRetrofit(client).create(ApiService::class.java)
     }
 
-    // Fungsi untuk membuat Multipart untuk file upload
     fun prepareFilePart(filePath: String): MultipartBody.Part {
         val file = File(filePath)
-        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull()) // Menyesuaikan dengan tipe file
+        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData("file", file.name, requestFile)
     }
 
-    // Fungsi untuk membuat RequestBody dari userId
     fun prepareUserIdPart(userId: String): RequestBody {
         return userId.toRequestBody("text/plain".toMediaTypeOrNull())
     }
 }
+

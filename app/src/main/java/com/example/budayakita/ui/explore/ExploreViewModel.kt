@@ -8,6 +8,8 @@ import com.example.budayakita.data.UserRepository
 import com.example.budayakita.data.response.PredictionHistoryResponse
 import com.example.budayakita.data.response.PredictionResponse
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class ExploreViewModel(private val repository: UserRepository) : ViewModel() {
 
@@ -23,11 +25,12 @@ class ExploreViewModel(private val repository: UserRepository) : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
-    fun predictImage(file: String, userId: String) {
+    fun predictImage(file: MultipartBody.Part, userId: RequestBody) {
         _loading.value = true
         viewModelScope.launch {
             try {
-                val response = repository.predictImage(file, userId)
+                // Memanggil API untuk prediksi gambar
+                val response = repository.predictImage(file.toString(), userId.toString())
                 _predictionResponse.value = response
             } catch (e: Exception) {
                 _error.value = e.message
@@ -36,6 +39,7 @@ class ExploreViewModel(private val repository: UserRepository) : ViewModel() {
             }
         }
     }
+
 
     fun getPredictionHistory(userId: String) {
         _loading.value = true

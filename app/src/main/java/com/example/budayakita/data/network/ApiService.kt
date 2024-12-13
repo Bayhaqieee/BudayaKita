@@ -1,5 +1,7 @@
 package com.example.budayakita.data.network
 
+import com.example.budayakita.data.model.Budaya
+import com.example.budayakita.data.response.BudayaResponse
 import com.example.budayakita.data.response.LoginResponse
 import com.example.budayakita.data.response.PredictionHistoryResponse
 import com.example.budayakita.data.response.PredictionResponse
@@ -30,16 +32,25 @@ interface ApiService {
     ): LoginResponse
 
     @Multipart
-    @POST("predict")
+    @POST("predict-image")
     suspend fun predictImage(
         @Part file: MultipartBody.Part,
-        @Part("userId") userId: RequestBody
+        @Part("user_id") userId: RequestBody
     ): PredictionResponse
+
 
     @GET("predictionHistory")
     suspend fun getPredictionHistory(
-        @Query("userId") userId: String
+        @Query("user_id") userId: String
     ): PredictionHistoryResponse
+
+    @GET("getall_budaya")
+    suspend fun getAllBudaya(): BudayaResponse
+
+    @GET("details")
+    suspend fun getBudayaDetails(
+        @Query("file_name") fileName: String
+    ): Budaya
 }
 
 data class SendOtpRequest(

@@ -1,5 +1,6 @@
 package com.example.budayakita.data
 
+import com.example.budayakita.data.model.Budaya
 import com.example.budayakita.data.model.UserModel
 import com.example.budayakita.data.network.ApiService
 import com.example.budayakita.data.network.ApiClient
@@ -51,6 +52,16 @@ class UserRepository private constructor(
     fun getSession(): Flow<UserModel> {
         return userPreference.getSession()
     }
+
+    suspend fun getAllBudaya(): List<Budaya> {
+        return apiService.getAllBudaya().results
+    }
+
+    // Tambahkan fungsi untuk mendapatkan detail budaya
+    suspend fun getBudayaDetails(fileName: String): Budaya {
+        return apiService.getBudayaDetails(fileName)
+    }
+
 
     suspend fun predictImage(filePath: String, userId: String): PredictionResponse {
         // Persiapkan MultipartBody.Part untuk file

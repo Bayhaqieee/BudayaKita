@@ -25,6 +25,11 @@ import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -62,7 +67,7 @@ class ExploreActivity : AppCompatActivity() {
             result.data?.extras?.get("data")?.let { photo ->
                 if (photo is Bitmap) {
                     binding.previewImage.setImageBitmap(photo)
-                    // Convert bitmap to file if needed
+
                 }
             } ?: run {
                 Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show()
@@ -75,7 +80,6 @@ class ExploreActivity : AppCompatActivity() {
         binding = ActivityExploreBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Mengambil session atau token dari preference
         lifecycleScope.launch {
             val session = userPreference.getSession().first()
             currentUserId = session.token
@@ -118,7 +122,7 @@ class ExploreActivity : AppCompatActivity() {
 
         binding.btnCamera.setOnClickListener {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val photoUri = createImageFileUri()  // Membuat file image URI
+            val photoUri = createImageFileUri()
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
             cameraLauncher.launch(intent)
         }
@@ -128,8 +132,14 @@ class ExploreActivity : AppCompatActivity() {
                 val realPath = getRealPathFromURI(uri)
                 if (realPath.isNotEmpty()) {
                     val file = File(realPath)
-                    exploreViewModel.predictImage(file.absolutePath, currentUserId)
-                    replaceFragment(LoadingExploreFragment())  // Menampilkan fragment loading
+
+                    val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+                    val userIdBody = currentUserId.toRequestBody("text/plain".toMediaTypeOrNull())
+
+                    exploreViewModel.predictImage(body, userIdBody)
+                    replaceFragment(LoadingExploreFragment())
                 } else {
                     Toast.makeText(this, "Failed to get image path", Toast.LENGTH_SHORT).show()
                 }
@@ -139,10 +149,10 @@ class ExploreActivity : AppCompatActivity() {
         }
     }
 
+
     private fun observeViewModel() {
         exploreViewModel.predictionResponse.observe(this) { response ->
             if (response != null) {
-                // Transisi ke fragment sukses jika prediksi berhasil
                 val successFragment = SuccessExploreFragment.newInstance(
                     response.file_url,
                     response.prediction,
@@ -150,7 +160,6 @@ class ExploreActivity : AppCompatActivity() {
                 )
                 replaceFragment(successFragment)
             } else {
-                // Jika prediksi gagal, tampilkan pesan kesalahan
                 Toast.makeText(this, "Prediction failed. Please try again.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -159,11 +168,9 @@ class ExploreActivity : AppCompatActivity() {
             if (!isLoading) {
                 val predictionResponse = exploreViewModel.predictionResponse.value
                 if (predictionResponse == null) {
-                    // Jika tidak ada respons, tampilkan pesan gagal
                     Toast.makeText(this, "Prediction failed. Please try again.", Toast.LENGTH_SHORT).show()
-                    // Jangan panggil finish disini agar tidak menutup activity
                 } else {
-                    // Jika prediksi berhasil, tampilkan fragment sukses
+
                     replaceFragment(SuccessExploreFragment.newInstance(
                         predictionResponse.file_url ?: "",
                         predictionResponse.prediction ?: "",
@@ -174,7 +181,6 @@ class ExploreActivity : AppCompatActivity() {
         }
 
         exploreViewModel.error.observe(this) { error ->
-            // Jika ada error dalam proses prediksi
             Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
         }
     }

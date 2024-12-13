@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.budayakita.data.UserRepository
 import com.example.budayakita.di.Injection
+import com.example.budayakita.ui.auth.detail.DetailViewModel
 import com.example.budayakita.ui.auth.login.LoginViewModel
 import com.example.budayakita.ui.auth.otp.OtpViewModel
 import com.example.budayakita.ui.auth.register.RegisterViewModel
 import com.example.budayakita.ui.explore.ExploreViewModel
+import com.example.budayakita.ui.glossary.GlossaryViewModel
 import com.example.budayakita.ui.home.MainViewModel
 import com.example.budayakita.ui.profile.ProfileViewModel
 
@@ -36,6 +38,12 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(userRepository) as T
+            }
+            modelClass.isAssignableFrom(GlossaryViewModel::class.java) -> {
+                GlossaryViewModel(userRepository) as T
+            }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(userRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
