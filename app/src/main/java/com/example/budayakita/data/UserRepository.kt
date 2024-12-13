@@ -1,17 +1,18 @@
 package com.example.budayakita.data
 
-import com.example.budayakita.data.model.ImagePredictionRequest
 import com.example.budayakita.data.model.UserModel
-import com.example.budayakita.data.model.UserPreference
 import com.example.budayakita.data.network.ApiService
+import com.example.budayakita.data.network.ApiClient
+import com.example.budayakita.data.model.UserPreference
+import com.example.budayakita.data.network.LoginRequest
 import com.example.budayakita.data.network.SendOtpRequest
 import com.example.budayakita.data.network.VerifyOtpRequest
-import com.example.budayakita.data.network.LoginRequest
 import com.example.budayakita.data.response.LoginResponse
 import com.example.budayakita.data.response.PredictionHistoryResponse
 import com.example.budayakita.data.response.PredictionResponse
 import com.example.budayakita.data.response.RegisterResponse
 import kotlinx.coroutines.flow.Flow
+
 
 class UserRepository private constructor(
     private val apiService: ApiService,
@@ -34,9 +35,11 @@ class UserRepository private constructor(
         userPreference.saveToken(response.token)
         return response
     }
+
     suspend fun saveDarkModePreference(isDarkMode: Boolean) {
         userPreference.saveDarkModePreference(isDarkMode)
     }
+
     fun getDarkModePreference(): Flow<Boolean> {
         return userPreference.getDarkModePreference()
     }
@@ -49,9 +52,14 @@ class UserRepository private constructor(
         return userPreference.getSession()
     }
 
-    suspend fun predictImage(file: String, userId: String): PredictionResponse {
-        val request = ImagePredictionRequest(file, userId)
-        return apiService.predictImage(request)
+    suspend fun predictImage(filePath: String, userId: String): PredictionResponse {
+        // Persiapkan MultipartBody.Part untuk file
+        val filePart = ApiClient.prepareFilePart(filePath)
+        // Persiapkan RequestBody untuk userId
+        val userIdPart = ApiClient.prepareUserIdPart(userId)
+
+        // Mengirimkan ke API dengan parameter file dan userId
+        return apiService.predictImage(filePart, userIdPart)
     }
 
     suspend fun getPredictionHistory(userId: String): PredictionHistoryResponse {

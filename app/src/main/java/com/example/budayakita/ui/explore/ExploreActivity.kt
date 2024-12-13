@@ -129,7 +129,7 @@ class ExploreActivity : AppCompatActivity() {
                 if (realPath.isNotEmpty()) {
                     val file = File(realPath)
                     exploreViewModel.predictImage(file.absolutePath, currentUserId)
-                    replaceFragment(LoadingExploreFragment())
+                    replaceFragment(LoadingExploreFragment())  // Menampilkan fragment loading
                 } else {
                     Toast.makeText(this, "Failed to get image path", Toast.LENGTH_SHORT).show()
                 }
@@ -142,6 +142,7 @@ class ExploreActivity : AppCompatActivity() {
     private fun observeViewModel() {
         exploreViewModel.predictionResponse.observe(this) { response ->
             if (response != null) {
+                // Transisi ke fragment sukses jika prediksi berhasil
                 val successFragment = SuccessExploreFragment.newInstance(
                     response.file_url,
                     response.prediction,
@@ -149,15 +150,39 @@ class ExploreActivity : AppCompatActivity() {
                 )
                 replaceFragment(successFragment)
             } else {
-                Toast.makeText(this, "Prediction failed", Toast.LENGTH_SHORT).show()
+                // Jika prediksi gagal, tampilkan pesan kesalahan
+                Toast.makeText(this, "Prediction failed. Please try again.", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        exploreViewModel.loading.observe(this) { isLoading ->
+            if (!isLoading) {
+                val predictionResponse = exploreViewModel.predictionResponse.value
+                if (predictionResponse == null) {
+                    // Jika tidak ada respons, tampilkan pesan gagal
+                    Toast.makeText(this, "Prediction failed. Please try again.", Toast.LENGTH_SHORT).show()
+                    // Jangan panggil finish disini agar tidak menutup activity
+                } else {
+                    // Jika prediksi berhasil, tampilkan fragment sukses
+                    replaceFragment(SuccessExploreFragment.newInstance(
+                        predictionResponse.file_url ?: "",
+                        predictionResponse.prediction ?: "",
+                        predictionResponse.deskripsi ?: ""
+                    ))
+                }
+            }
+        }
+
+        exploreViewModel.error.observe(this) { error ->
+            // Jika ada error dalam proses prediksi
+            Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .commit()  // Commit menggunakan commit() untuk menjaga lifecycle fragment
+            .commit()
     }
 
     private fun getRealPathFromURI(uri: Uri): String {
@@ -174,7 +199,6 @@ class ExploreActivity : AppCompatActivity() {
         }
         return uri.path ?: ""
     }
-
 
     @SuppressLint("SimpleDateFormat")
     private fun createImageFileUri(): Uri {

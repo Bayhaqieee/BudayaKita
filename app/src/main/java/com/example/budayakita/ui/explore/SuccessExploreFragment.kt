@@ -30,8 +30,7 @@ class SuccessExploreFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSuccessExploreBinding.inflate(inflater, container, false)
@@ -41,24 +40,17 @@ class SuccessExploreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val imageUrl = arguments?.getString(ARG_IMAGE_URL)
-        val prediction = arguments?.getString(ARG_PREDICTION)
-        val description = arguments?.getString(ARG_DESCRIPTION)
+        arguments?.let {
+            val imageUrl = it.getString(ARG_IMAGE_URL)
+            val prediction = it.getString(ARG_PREDICTION)
+            val description = it.getString(ARG_DESCRIPTION)
 
-        Glide.with(requireContext())
-            .load(imageUrl)
-            .into(binding.resultImage)
+            Glide.with(requireContext())
+                .load(imageUrl)
+                .into(binding.resultImage)
 
-        binding.titleResult.text = prediction
-        binding.description.text = description
-
-        binding.btnDetail.setOnClickListener {
-            // TODO: Implement detail view or navigation
-        }
-
-        binding.btnReUpload.setOnClickListener {
-            // Navigate back to upload screen or reset the upload process
-            requireActivity().supportFragmentManager.popBackStack()
+            binding.titleResult.text = prediction
+            binding.description.text = description
         }
     }
 }
